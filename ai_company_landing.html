@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>明稞科技有限公司 - 人工智慧應用解決方案</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0a;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            margin-left: 2rem;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .lang-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 5% 4rem;
+            position: relative;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(102, 126, 234, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(118, 75, 162, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(240, 147, 251, 0.2) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .hero-content {
+            max-width: 900px;
+            animation: fadeInUp 1s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            font-weight: 900;
+            letter-spacing: -2px;
+            text-shadow: 0 0 60px rgba(102, 126, 234, 0.5);
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.4s;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.6);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid white;
+            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.1);
+        }
+
+        .cta-button.secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        .features {
+            padding: 8rem 5%;
+            background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 100%);
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: white;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 5rem;
+            font-weight: 300;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            padding: 3rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top left, rgba(102, 126, 234, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 30px 60px rgba(102, 126, 234, 0.3);
+        }
+
+        .feature-icon {
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            transition: transform 0.4s;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 15px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            padding: 10px;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .feature-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: #667eea;
+            filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.5));
+        }
+
+        .feature-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .stats {
+            padding: 8rem 5%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .cta-section {
+            padding: 8rem 5%;
+            background: linear-gradient(180deg, #1a1a2e 0%, #0a0a0a 100%);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-weight: 900;
+        }
+
+        .cta-section p {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+        }
+
+        footer {
+            padding: 4rem 5%;
+            background: #000;
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        .floating {
+            animation: floating 4s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-25px); }
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            animation: float 6s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">明稞科技</div>
+        <div style="display: flex; align-items: center;">
+            <ul class="nav-links">
+                <li><a href="#home" id="nav-home">首頁</a></li>
+                <li><a href="#features" id="nav-features">服務項目</a></li>
+                <li><a href="#about" id="nav-about">關於我們</a></li>
+                <li><a href="#contact" id="nav-contact">聯絡我們</a></li>
+            </ul>
+            <div class="lang-switch">
+                <button class="lang-btn active" onclick="setLanguage('zh')">中文</button>
+                <button class="lang-btn" onclick="setLanguage('en')">English</button>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="floating" id="hero-title">AI 驅動創新未來</h1>
+            <p class="subtitle" id="hero-subtitle">運用最先進的人工智慧技術，為您的企業打造智能解決方案<br>讓 AI 成為您業務增長的強大動力</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="cta-button" id="hero-cta1">立即開始</a>
+                <a href="#features" class="cta-button secondary" id="hero-cta2">了解更多</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <h2 class="section-title" id="features-title">我們的 AI 解決方案</h2>
+        <p class="section-subtitle" id="features-subtitle">為您量身打造的智能應用服務</p>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="https://images.unsplash.com/photo-1716191299980-a6e8827ba10b?q=80&w=2125&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="6 DOF Robot Arm">
+                </div>
+                <h3 id="feature-1-title">3D視覺與機器人應用</h3>
+                <p id="feature-1-desc">結合3D視覺感測與AI演算法，賦予工業機器人精準的空間定位與物件識別能力，實現智能取放、組裝、焊接等自動化作業流程。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="0.5"/>
+                        <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="0.5"/>
+                        <circle cx="12" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="0.5"/>
+                        <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="0.5"/>
+                        <circle cx="12" cy="12" r="2" fill="none" stroke="currentColor" stroke-width="0.5"/>
+                        <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07" stroke="currentColor" stroke-width="0.3"/>
+                        <rect x="9" y="9" width="6" height="6" rx="1" fill="rgba(255,255,255,0.1)"/>
+                    </svg>
+                </div>
+                <h3 id="feature-2-title">晶圓檢測與自動化流程</h3>
+                <p id="feature-2-desc">結合電腦視覺與深度學習技術，實現晶圓表面缺陷的精準檢測與分類，並整合自動化流程控制，大幅提升良率與生產效率。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 5v2M12 17v2M5 12h2M17 12h2M7.5 7.5l1.4 1.4M15.1 15.1l1.4 1.4M7.5 16.5l1.4-1.4M15.1 8.9l1.4-1.4"/>
+                        <rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="0.5"/>
+                    </svg>
+                </div>
+                <h3 id="feature-3-title">AI深度學習與自動光學檢測應用</h3>
+                <p id="feature-3-desc">整合深度神經網路與AOI技術，實現PCB板、電子元件、產品表面的微米級瑕疵檢測，取代人工目檢，達到99.9%以上的檢測準確率。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="4" y="6" width="16" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                        <circle cx="12" cy="12" r="2.5"/>
+                        <path d="M8 12h1M15 12h1M12 9v1M12 14v1"/>
+                        <path d="M7 6L5 3M17 6l2-3" stroke="currentColor" stroke-width="1.5"/>
+                        <rect x="9" y="18" width="6" height="2" rx="1"/>
+                    </svg>
+                </div>
+                <h3 id="feature-4-title">車牌辨識與人流計數</h3>
+                <p id="feature-4-desc">運用先進的影像辨識技術，實現高精準度的車牌自動辨識系統，並結合智能人流計數分析，為停車場管理、商場營運提供即時數據洞察。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <circle cx="12" cy="12" r="1.5"/>
+                        <path d="M3 12h2M19 12h2M12 3v2M12 19v2" stroke="currentColor" stroke-width="1"/>
+                    </svg>
+                </div>
+                <h3 id="feature-5-title">流程自動化</h3>
+                <p id="feature-5-desc">智能自動化系統能學習並持續優化，將繁瑣的重複性工作交給 AI，讓團隊專注於更有價值的創新工作。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="stats">
+        <h2 class="section-title" id="about-title">關於我們</h2>
+        <p class="section-subtitle" id="about-subtitle">專業 AOI 解決方案提供者</p>
+        <div style="max-width: 900px; margin: 0 auto; text-align: center; position: relative; z-index: 1;">
+            <p id="about-text-1" style="font-size: 1.4rem; line-height: 2; margin-bottom: 2rem; font-weight: 300;">
+                明稞科技成立於 <strong style="font-weight: 700; font-size: 1.6rem;">2007年</strong>，我們是自動光學檢測（AOI）專家。
+            </p>
+            <p id="about-text-2" style="font-size: 1.3rem; line-height: 2; margin-bottom: 2rem; font-weight: 300;">
+                我們致力於為客戶優化現有設備，提升生產效率與品質管控能力。
+            </p>
+            <p id="about-text-3" style="font-size: 1.3rem; line-height: 2; font-weight: 300;">
+                同時，我們也為客戶量身訂作 AI 自動化設備系統，協助企業實現智能製造轉型。
+            </p>
+        </div>
+    </section>
+
+    <section id="contact" class="cta-section">
+        <h2 id="contact-title">準備好轉型升級了嗎？</h2>
+        <p id="contact-subtitle">加入數百家企業的行列，運用 AI 的力量推動業務增長與創新，讓我們一起創造智能未來。</p>
+        <a href="mailto:fusung.wang@gmail.com" class="cta-button" id="contact-cta">聯絡我們</a>
+    </section>
+
+    <footer>
+        <p id="footer-copyright">&copy; 2025 明稞科技有限公司 版權所有</p>
+        <p id="footer-tagline" style="margin-top: 1rem; opacity: 0.7;">用人工智慧打造未來</p>
+        <p id="footer-address" style="margin-top: 1.5rem; opacity: 0.8;">📍 地址：105 台北市松山區民族東路646號1F</p>
+        <p id="footer-phone" style="margin-top: 0.5rem; opacity: 0.8;">📞 電話：0910-330516</p>
+        <p style="margin-top: 0.5rem; opacity: 0.8;">✉️ Email: fusung.wang@gmail.com</p>
+        <p style="margin-top: 0.5rem; opacity: 0.8;">💬 Line: me1237guy</p>
+    </footer>
+
+    <script>
+        // Language content object
+        const content = {
+            zh: {
+                'nav-home': '首頁',
+                'nav-features': '服務項目',
+                'nav-about': '關於我們',
+                'nav-contact': '聯絡我們',
+                'hero-title': 'AI 驅動創新未來',
+                'hero-subtitle': '運用最先進的人工智慧技術，為您的企業打造智能解決方案<br>讓 AI 成為您業務增長的強大動力',
+                'hero-cta1': '立即開始',
+                'hero-cta2': '了解更多',
+                'features-title': '我們的 AI 解決方案',
+                'features-subtitle': '為您量身打造的智能應用服務',
+                'feature-1-title': '3D視覺與機器人應用',
+                'feature-1-desc': '結合3D視覺感測與AI演算法，賦予工業機器人精準的空間定位與物件識別能力，實現智能取放、組裝、焊接等自動化作業流程。',
+                'feature-2-title': '晶圓檢測與自動化流程',
+                'feature-2-desc': '結合電腦視覺與深度學習技術，實現晶圓表面缺陷的精準檢測與分類，並整合自動化流程控制，大幅提升良率與生產效率。',
+                'feature-3-title': 'AI深度學習與自動光學檢測應用',
+                'feature-3-desc': '整合深度神經網路與AOI技術，實現PCB板、電子元件、產品表面的微米級瑕疵檢測，取代人工目檢，達到99.9%以上的檢測準確率。',
+                'feature-4-title': '車牌辨識與人流計數',
+                'feature-4-desc': '運用先進的影像辨識技術，實現高精準度的車牌自動辨識系統，並結合智能人流計數分析，為停車場管理、商場營運提供即時數據洞察。',
+                'feature-5-title': '流程自動化',
+                'feature-5-desc': '智能自動化系統能學習並持續優化，將繁瑣的重複性工作交給 AI，讓團隊專注於更有價值的創新工作。',
+                'about-title': '關於我們',
+                'about-subtitle': '專業 AOI 解決方案提供者',
+                'about-text-1': '明稞科技成立於 <strong style="font-weight: 700; font-size: 1.6rem;">2007年</strong>，我們是自動光學檢測（AOI）專家。',
+                'about-text-2': '我們致力於為客戶優化現有設備，提升生產效率與品質管控能力。',
+                'about-text-3': '同時，我們也為客戶量身訂作 AI 自動化設備系統，協助企業實現智能製造轉型。',
+                'contact-title': '準備好轉型升級了嗎？',
+                'contact-subtitle': '加入數百家企業的行列，運用 AI 的力量推動業務增長與創新，讓我們一起創造智能未來。',
+                'contact-cta': '聯絡我們',
+                'footer-copyright': '&copy; 2025 明稞科技有限公司 版權所有',
+                'footer-tagline': '用人工智慧打造未來',
+                'footer-address': '📍 地址：105 台北市松山區民族東路646號1F',
+                'footer-phone': '📞 電話：0910-330516'
+            },
+            en: {
+                'nav-home': 'Home',
+                'nav-features': 'Services',
+                'nav-about': 'About Us',
+                'nav-contact': 'Contact',
+                'hero-title': 'AI-Powered Innovation',
+                'hero-subtitle': 'Leverage cutting-edge AI technology to build intelligent solutions for your business<br>Let AI become a powerful force for your business growth',
+                'hero-cta1': 'Get Started',
+                'hero-cta2': 'Learn More',
+                'features-title': 'Our AI Solutions',
+                'features-subtitle': 'Intelligent application services tailored for you',
+                'feature-1-title': '3D Vision & Robotic Applications',
+                'feature-1-desc': 'Integrating 3D vision sensing with AI algorithms to provide industrial robots with precise spatial positioning and object recognition capabilities, enabling intelligent pick-and-place, assembly, welding, and other automated workflows.',
+                'feature-2-title': 'Wafer Inspection & Process Automation',
+                'feature-2-desc': 'Combining computer vision with deep learning technology to achieve precise detection and classification of wafer surface defects, integrated with automated process control to significantly enhance yield rates and production efficiency.',
+                'feature-3-title': 'AI Deep Learning & AOI Solutions',
+                'feature-3-desc': 'Integrating deep neural networks with AOI technology for micron-level defect detection on PCBs, electronic components, and product surfaces. Replacing manual visual inspection with over 99.9% detection accuracy.',
+                'feature-4-title': 'License Plate Recognition & People Counting',
+                'feature-4-desc': 'Utilizing advanced image recognition technology for high-precision automatic license plate recognition systems, combined with intelligent people counting analytics to provide real-time data insights for parking management and retail operations.',
+                'feature-5-title': 'Process Automation',
+                'feature-5-desc': 'Intelligent automation systems that learn and continuously optimize operations, delegating tedious repetitive tasks to AI so your team can focus on higher-value innovative work.',
+                'about-title': 'About Us',
+                'about-subtitle': 'Professional AOI Solution Provider',
+                'about-text-1': 'MingKe Technology was founded in <strong style="font-weight: 700; font-size: 1.6rem;">2007</strong>. We are experts in Automated Optical Inspection (AOI).',
+                'about-text-2': 'We are dedicated to optimizing existing equipment for our clients, enhancing production efficiency and quality control capabilities.',
+                'about-text-3': 'We also customize AI automation equipment systems for clients, helping businesses achieve smart manufacturing transformation.',
+                'contact-title': 'Ready to Transform Your Business?',
+                'contact-subtitle': 'Join hundreds of companies leveraging AI power to drive business growth and innovation. Let\'s create an intelligent future together.',
+                'contact-cta': 'Contact Us',
+                'footer-copyright': '&copy; 2025 MingKe Technology Co., Ltd. All Rights Reserved',
+                'footer-tagline': 'Building the future with AI',
+                'footer-address': '📍 Address: 1F, No. 646, Minzu E. Rd., Songshan Dist., Taipei City 105, Taiwan',
+                'footer-phone': '📞 Phone: +886-910-330516'
+            }
+        };
+
+        let currentLang = 'zh';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            
+            // Update button states
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update all content
+            for (let id in content[lang]) {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.innerHTML = content[lang][id];
+                }
+            }
+
+            // Update HTML lang attribute
+            document.documentElement.lang = lang === 'zh' ? 'zh-TW' : 'en';
+        }
+
+        // Make function globally available
+        window.setLanguage = setLanguage;
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Add parallax effect to hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-content');
+            if (hero && scrolled < 800) {
+                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+                hero.style.opacity = 1 - (scrolled / 700);
+            }
+        });
+
+        // Create floating particles in hero
+        function createParticles() {
+            const hero = document.querySelector('.hero');
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.width = Math.random() * 4 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = Math.random() * 4 + 4 + 's';
+                hero.appendChild(particle);
+            }
+        }
+
+        createParticles();
+    </script>
+</body>
+</html>
