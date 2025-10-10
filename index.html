@@ -452,7 +452,7 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">明 稞 科 技</div>
+        <div class="logo">明稞科技</div>
         <div style="display: flex; align-items: center;">
             <ul class="nav-links">
                 <li><a href="#home" id="nav-home">首頁</a></li>
@@ -491,14 +491,48 @@
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="0.5"/>
-                        <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="0.5"/>
-                        <circle cx="12" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="0.5"/>
-                        <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="0.5"/>
-                        <circle cx="12" cy="12" r="2" fill="none" stroke="currentColor" stroke-width="0.5"/>
-                        <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07" stroke="currentColor" stroke-width="0.3"/>
-                        <rect x="9" y="9" width="6" height="6" rx="1" fill="rgba(255,255,255,0.1)"/>
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Wafer outer circle -->
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="1"/>
+                        
+                        <!-- Concentric circles representing wafer zones -->
+                        <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.6"/>
+                        <circle cx="50" cy="50" r="31" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.6"/>
+                        <circle cx="50" cy="50" r="24" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.6"/>
+                        <circle cx="50" cy="50" r="17" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.6"/>
+                        <circle cx="50" cy="50" r="10" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.6"/>
+                        
+                        <!-- Grid lines - vertical -->
+                        <line x1="50" y1="5" x2="50" y2="95" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+                        <line x1="35" y1="10" x2="35" y2="90" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+                        <line x1="65" y1="10" x2="65" y2="90" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+                        <line x1="20" y1="18" x2="20" y2="82" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+                        <line x1="80" y1="18" x2="80" y2="82" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+                        
+                        <!-- Grid lines - horizontal -->
+                        <line x1="5" y1="50" x2="95" y2="50" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+                        <line x1="10" y1="35" x2="90" y2="35" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+                        <line x1="10" y1="65" x2="90" y2="65" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+                        <line x1="18" y1="20" x2="82" y2="20" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+                        <line x1="18" y1="80" x2="82" y2="80" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+                        
+                        <!-- Diagonal grid -->
+                        <line x1="15" y1="15" x2="85" y2="85" stroke="currentColor" stroke-width="0.3" opacity="0.3"/>
+                        <line x1="85" y1="15" x2="15" y2="85" stroke="currentColor" stroke-width="0.3" opacity="0.3"/>
+                        
+                        <!-- Die representation (small rectangles) -->
+                        <rect x="38" y="38" width="5" height="5" fill="rgba(102, 126, 234, 0.3)" stroke="currentColor" stroke-width="0.5"/>
+                        <rect x="57" y="38" width="5" height="5" fill="rgba(102, 126, 234, 0.3)" stroke="currentColor" stroke-width="0.5"/>
+                        <rect x="38" y="57" width="5" height="5" fill="rgba(102, 126, 234, 0.3)" stroke="currentColor" stroke-width="0.5"/>
+                        <rect x="57" y="57" width="5" height="5" fill="rgba(102, 126, 234, 0.3)" stroke="currentColor" stroke-width="0.5"/>
+                        <rect x="47.5" y="47.5" width="5" height="5" fill="rgba(102, 126, 234, 0.5)" stroke="currentColor" stroke-width="0.8"/>
+                        
+                        <!-- Notch (flat edge indicator) -->
+                        <path d="M 48 5 L 52 5 L 52 8 L 48 8 Z" fill="currentColor"/>
+                        
+                        <!-- Center cross mark -->
+                        <line x1="48" y1="50" x2="52" y2="50" stroke="currentColor" stroke-width="1"/>
+                        <line x1="50" y1="48" x2="50" y2="52" stroke="currentColor" stroke-width="1"/>
                     </svg>
                 </div>
                 <h3 id="feature-2-title">晶圓檢測與自動化流程</h3>
